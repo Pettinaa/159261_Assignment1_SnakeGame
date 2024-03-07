@@ -56,14 +56,26 @@ public class IntroductionFrame extends JFrame {
 
     private void startGame(String mode) {
 
+        //判断用户选择的是哪种游戏模式
+        if (mode.equals("Normal Mode")) {
         JFrame frame = new JFrame();
-
         frame.setBounds(10, 10, 900, 720);
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new Panel());
-
+        frame.add(new NormalModePanel());
         frame.setVisible(true);
+
+        } else if (mode.equals("Explosion Mode")) {
+            // 创建 ExplosionModePanel，如果有的话
+            // gamePanel = new ExplosionModePanel();
+        } else if (mode.equals("Extreme Mode")) {
+            // 创建 ExtremeModePanel，如果有的话
+            // gamePanel = new ExtremeModePanel();
+        } else {
+            // 处理其他模式
+            return;
+        }
+
     }
 
     private void returnToMenu(JFrame frame) {

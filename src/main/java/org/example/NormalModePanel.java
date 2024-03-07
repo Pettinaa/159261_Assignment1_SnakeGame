@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 
-public class Panel extends JPanel implements KeyListener, ActionListener {
+public class NormalModePanel extends JPanel implements KeyListener, ActionListener {
     ImageIcon title = new ImageIcon("title.jpg");
 
     ImageIcon body = new ImageIcon("body.png");
@@ -38,7 +38,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     int foodx;
     int foody;
     Random rand = new Random();
-    public Panel(){
+    public NormalModePanel(){
         //初始化蛇
         initSnake();
         this.setFocusable(true);
@@ -47,7 +47,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
 
     }
     // 新增带参数的构造函数
-    public Panel(String gameMode) {
+    public NormalModePanel(String gameMode) {
         this();  // 调用默认构造函数，复用通用的初始化逻辑
 
         // 根据游戏模式的不同，设置初始化和绘制逻辑
