@@ -41,14 +41,23 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     public Panel(){
         //初始化蛇
         initSnake();
-        //初始化网格
-        initLine();
         this.setFocusable(true);
         this.addKeyListener(this);
         timer.start();
 
+    }
+    // 新增带参数的构造函数
+    public Panel(String gameMode) {
+        this();  // 调用默认构造函数，复用通用的初始化逻辑
 
-
+        // 根据游戏模式的不同，设置初始化和绘制逻辑
+        if (gameMode.equals("Normal Mode")) {
+            // 设置常规模式的初始化逻辑（如果有的话）
+        } else if (gameMode.equals("Explosion Mode")) {
+            // 设置食物大爆炸模式的初始化逻辑（如果有的话）
+        } else if (gameMode.equals("Extreme Mode")) {
+            // 设置极限模式的初始化逻辑（如果有的话）
+        }
     }
 
     public void paintComponent(Graphics g){
@@ -134,27 +143,14 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         snakey[1] = 125;
         snakex[2] = 50;
         snakey[2] = 125;
-        foodx = 50 + 25 * rand.nextInt(32);
-        foody = 100 + 25 * rand.nextInt(22);
+        foodx = 100 + 25 * rand.nextInt(28);
+        foody = 150 + 25 * rand.nextInt(18);
         direction = "R";
         score = 0;
     }
 
-    public void initLine(){
-      
-    }
 
-//    private void initializeWalls(){
-//        for(int i = 50; i < 875; i++){
-//            walls.add(new Point(i, 0));
-//            walls.add(new Point(i, 870 - 1));
-//        }
-//
-//        for(int i = 50; i < 675; i++){
-//            walls.add(new Point(0, i));
-//            walls.add(new Point(675 - 1, i));
-//        }
-//    }
+
 
 
     @Override
