@@ -65,10 +65,14 @@ public class IntroductionFrame extends JFrame {
         frame.add(new NormalModePanel());
         frame.setVisible(true);
 
-        } else if (mode.equals("Explosion Mode")) {
-            // 创建 ExplosionModePanel，如果有的话
-            // gamePanel = new ExplosionModePanel();
-        } else if (mode.equals("Extreme Mode")) {
+        } else if (mode.equals("Foodie Mode")) {
+            JFrame frame = new JFrame();
+            frame.setBounds(10, 10, 900, 720);
+            frame.setResizable(false);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.add(new FoodieModePanel());
+            frame.setVisible(true);
+        } else if (mode.equals("Survival Mode")) {
             // 创建 ExtremeModePanel，如果有的话
             // gamePanel = new ExtremeModePanel();
         } else {
@@ -86,13 +90,13 @@ public class IntroductionFrame extends JFrame {
 
     // ... (Add methods to start different game modes if needed)
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                IntroductionFrame introFrame = new IntroductionFrame("Normal Mode", new JFrame());
-                introFrame.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                IntroductionFrame introFrame = new IntroductionFrame("Normal Mode", new JFrame());
+//                introFrame.setVisible(true);
+//            }
+//        });
+//    }
 }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 
-public class NormalModePanel extends JPanel implements KeyListener, ActionListener {
+public class FoodieModePanel extends JPanel implements KeyListener, ActionListener {
     ImageIcon title = new ImageIcon("title.jpg");
 
     ImageIcon body = new ImageIcon("body.png");
@@ -38,7 +38,7 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
     int foodx;
     int foody;
     Random rand = new Random();
-    public NormalModePanel(){
+    public FoodieModePanel(){
         //初始化蛇
         initSnake();
         this.setFocusable(true);
@@ -47,7 +47,7 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
 
     }
     // 新增带参数的构造函数
-    public NormalModePanel(String gameMode) {
+    public FoodieModePanel(String gameMode) {
         this();  // 调用默认构造函数，复用通用的初始化逻辑
 
         // 根据游戏模式的不同，设置初始化和绘制逻辑
@@ -72,29 +72,29 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
         g.drawString("Score:" + score, 750, 50);
 
         //打印墙
-        for(int i = 25; i <= 850; i += 25){
-            wall.paintIcon(this, g, i, 75);
-        }
-        for(int i = 25; i <= 850; i += 25){
-            wall.paintIcon(this, g, i, 650);
-        }
-        for(int i = 75; i <= 650; i += 25){
-            wall.paintIcon(this, g, 25, i);
-        }
-        for(int i = 75; i <= 650; i += 25){
-            wall.paintIcon(this, g, 850, i);
-        }
+//        for(int i = 25; i <= 850; i += 25){
+//            wall.paintIcon(this, g, i, 75);
+//        }
+//        for(int i = 25; i <= 850; i += 25){
+//            wall.paintIcon(this, g, i, 650);
+//        }
+//        for(int i = 75; i <= 650; i += 25){
+//            wall.paintIcon(this, g, 25, i);
+//        }
+//        for(int i = 75; i <= 650; i += 25){
+//            wall.paintIcon(this, g, 850, i);
+//        }
 
         // 设置线段颜色为深灰色
         g.setColor(Color.DARK_GRAY);
         //画网格
-        for (int i = 0; i < 23; i++) {
+        for (int i = 0; i < 24; i++) {
             //23条横线      起点坐标                   终点坐标
-            g.drawLine(50, 100 + i * 25, 850, 100 + i * 25 );
+            g.drawLine(21, 75 + i * 25, 871, 75 + i * 25 );
         }
-        for (int i = 0; i < 31; i++) {
-            //23条竖线      起点坐标                   终点坐标
-            g.drawLine(75 + i * 25, 100, 75+ i * 25, 650 );
+        for (int i = 0; i < 33; i++) {
+            //32条竖线      起点坐标                   终点坐标
+            g.drawLine(50 + i * 25, 75, 50 + i * 25, 675 );
 
         }
 
@@ -112,7 +112,7 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
         }
         //蛇身
         for(int i = 1; i < len; i++){
-           body.paintIcon(this, g, snakex[i], snakey[i]);
+            body.paintIcon(this, g, snakex[i], snakey[i]);
         }
 
         //随机增加食物
@@ -197,34 +197,34 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
                 snakex[i] = snakex[i - 1];
                 snakey[i] = snakey[i - 1];
             }
-           //确定每个图片坐标和舌头方向（左上角位置
+            //确定每个图片坐标和舌头方向（左上角位置
             if(direction == "R"){
                 snakex[0] = snakex[0] + 25;
-                //让蛇撞墙死
-                if(snakex[0] == 825){
-                   isFailed = true;
+                //让蛇穿透墙壁
+                if(snakex[0] > 850){
+                    snakex[0] = 25;
                 }
             }else if(direction == "L"){
                 snakex[0] = snakex[0] - 25;
                 //让蛇穿透墙壁
-                if(snakex[0] == 50){
-                    isFailed = true;
+                if(snakex[0] < 25){
+                    snakex[0] = 850;
                 }
             }else if(direction == "U"){
                 snakey[0] = snakey[0] - 25;
-                if(snakey[0] == 100){
-                    isFailed = true;
+                if(snakey[0] < 75){
+                    snakey[0] = 650;
                 }
             }else if(direction == "D"){
                 snakey[0] = snakey[0] + 25;
-                if(snakey[0] == 625){
-                    isFailed = true;
+                if(snakey[0] > 650){
+                    snakey[0] = 75;
                 }
             }
-            //身体+1 & 重新生成食物
+            //身体+3 & 重新生成大汉堡
             if(snakex[0] == foodx && snakey[0] == foody){
-                len++;
-                score++;
+                len+= 3;
+                score+= 3;
                 foodx = 50 + 25 * rand.nextInt(33);
                 foody = 100 + 25 * rand.nextInt(23);
             }

@@ -24,8 +24,8 @@ public class GameMode extends JFrame {
         panel.setLayout(new GridLayout(3, 1));
 
         normalModeButton = new JButton("Normal Mode");
-        explosionModeButton = new JButton("Explosion Mode");
-        extremeModeButton = new JButton("Extreme Mode");
+        explosionModeButton = new JButton("Foodie Mode");
+        extremeModeButton = new JButton("Survival Mode");
 
         normalModeButton.addActionListener(new ActionListener() {
             @Override
@@ -37,14 +37,14 @@ public class GameMode extends JFrame {
         explosionModeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showIntroduction("Explosion Mode", GameMode.this);
+                showIntroduction("Foodie Mode", GameMode.this);
             }
         });
 
         extremeModeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showIntroduction("Extreme Mode", GameMode.this);
+                showIntroduction("Survival Mode", GameMode.this);
             }
         });
 
