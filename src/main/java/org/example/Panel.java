@@ -20,8 +20,10 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     ImageIcon left = new ImageIcon("left.png");
     ImageIcon right = new ImageIcon("right.png");
     ImageIcon food = new ImageIcon("food.png");
-
-    ImageIcon firewall = new ImageIcon("firewall.jpg");
+    ImageIcon bomb = new ImageIcon("bomb.png");
+    ImageIcon fire = new ImageIcon("fire.jpg");
+    ImageIcon wall = new ImageIcon("wall.png");
+    ImageIcon hamburger = new ImageIcon("hamburger.png");
     int len = 3;
     int score = 0;
     int[] snakex = new int[750];
@@ -39,6 +41,8 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
     public Panel(){
         //初始化蛇
         initSnake();
+        //初始化网格
+        initLine();
         this.setFocusable(true);
         this.addKeyListener(this);
         timer.start();
@@ -60,18 +64,30 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
 
         //打印墙
         for(int i = 25; i <= 850; i += 25){
-            firewall.paintIcon(this, g, i, 75);
+            wall.paintIcon(this, g, i, 75);
         }
         for(int i = 25; i <= 850; i += 25){
-            firewall.paintIcon(this, g, i, 650);
+            wall.paintIcon(this, g, i, 650);
         }
         for(int i = 75; i <= 650; i += 25){
-            firewall.paintIcon(this, g, 25, i);
+            wall.paintIcon(this, g, 25, i);
         }
         for(int i = 75; i <= 650; i += 25){
-            firewall.paintIcon(this, g, 850, i);
+            wall.paintIcon(this, g, 850, i);
         }
 
+        // 设置线段颜色为深灰色
+        g.setColor(Color.DARK_GRAY);
+        //画网格
+        for (int i = 0; i < 23; i++) {
+            //23条横线      起点坐标                   终点坐标
+            g.drawLine(50, 100 + i * 25, 850, 100 + i * 25 );
+        }
+        for (int i = 0; i < 31; i++) {
+            //23条竖线      起点坐标                   终点坐标
+            g.drawLine(75 + i * 25, 100, 75+ i * 25, 650 );
+
+        }
 
 
         //打印蛇
@@ -91,7 +107,7 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         }
 
         //随机增加食物
-        food.paintIcon(this, g, foodx, foody);
+        hamburger.paintIcon(this, g, foodx, foody);
 
         if(isStarted == false){
             //游戏开始提示
@@ -107,15 +123,10 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
             g.drawString("Failed: Press Space to Restart", 150, 300);
         }
 
-        //绘制墙
-//        g.setColor(Color.PINK);
-//        for(Point wall : walls){
-//            g.fillRect(wall.x * TILE_SIZE, wall.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
-//        }
 
     }
 
-    public  void initSnake(){
+    public void initSnake(){
         len = 3;
         snakex[0] = 100;
         snakey[0] = 125;
@@ -127,6 +138,10 @@ public class Panel extends JPanel implements KeyListener, ActionListener {
         foody = 100 + 25 * rand.nextInt(22);
         direction = "R";
         score = 0;
+    }
+
+    public void initLine(){
+      
     }
 
 //    private void initializeWalls(){
