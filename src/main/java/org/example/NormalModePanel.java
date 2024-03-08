@@ -116,7 +116,7 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
         }
 
         //随机增加食物
-        hamburger.paintIcon(this, g, foodx, foody);
+        bomb.paintIcon(this, g, foodx, foody);
 
         if(isStarted == false){
             //游戏开始提示

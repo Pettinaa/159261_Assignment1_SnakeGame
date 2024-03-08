@@ -19,7 +19,7 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
     ImageIcon down = new ImageIcon("down.png");
     ImageIcon left = new ImageIcon("left.png");
     ImageIcon right = new ImageIcon("right.png");
-    ImageIcon food = new ImageIcon("food.png");
+    ImageIcon food1 = new ImageIcon("food3.png");
     ImageIcon bomb = new ImageIcon("bomb.png");
     ImageIcon fire = new ImageIcon("fire.jpg");
     ImageIcon wall = new ImageIcon("wall.png");
@@ -35,8 +35,12 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
     boolean isStarted = false;
     boolean isFailed = false;
     Timer timer = new Timer(100, this);
-    int foodx;
-    int foody;
+    int food1x;
+    int food1y;
+    int food2x;
+    int food2y;
+    int hamburgerx;
+    int hamburgery;
     Random rand = new Random();
     public FoodieModePanel(){
         //初始化蛇
@@ -71,19 +75,7 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
         g.drawString("Length:" + len, 750, 35);
         g.drawString("Score:" + score, 750, 50);
 
-        //打印墙
-//        for(int i = 25; i <= 850; i += 25){
-//            wall.paintIcon(this, g, i, 75);
-//        }
-//        for(int i = 25; i <= 850; i += 25){
-//            wall.paintIcon(this, g, i, 650);
-//        }
-//        for(int i = 75; i <= 650; i += 25){
-//            wall.paintIcon(this, g, 25, i);
-//        }
-//        for(int i = 75; i <= 650; i += 25){
-//            wall.paintIcon(this, g, 850, i);
-//        }
+
 
         // 设置线段颜色为深灰色
         g.setColor(Color.DARK_GRAY);
@@ -116,7 +108,9 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
         }
 
         //随机增加食物
-        hamburger.paintIcon(this, g, foodx, foody);
+        food1.paintIcon(this, g, food1x, food1y);
+        //随机生成大汉堡
+        hamburger.paintIcon(this, g, hamburgerx,hamburgery);
 
         if(isStarted == false){
             //游戏开始提示
@@ -143,8 +137,10 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
         snakey[1] = 125;
         snakex[2] = 50;
         snakey[2] = 125;
-        foodx = 100 + 25 * rand.nextInt(28);
-        foody = 150 + 25 * rand.nextInt(18);
+        food1x = 100 + 25 * rand.nextInt(28);
+        food1y = 150 + 25 * rand.nextInt(18);
+        hamburgerx = 100 + 25 * rand.nextInt(28);
+        hamburgery = 150 + 25 * rand.nextInt(18);
         direction = "R";
         score = 0;
     }
@@ -221,12 +217,20 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
                     snakey[0] = 75;
                 }
             }
+            //身体+1 & 重新生成苹果
+            if(snakex[0] == food1x && snakey[0] == food1y){
+                len+= 1;
+                score+= 1;
+                food1x = 50 + 25 * rand.nextInt(33);
+                food1y = 100 + 25 * rand.nextInt(23);
+            }
+
             //身体+3 & 重新生成大汉堡
-            if(snakex[0] == foodx && snakey[0] == foody){
+            if(snakex[0] == hamburgerx && snakey[0] == hamburgery){
                 len+= 3;
                 score+= 3;
-                foodx = 50 + 25 * rand.nextInt(33);
-                foody = 100 + 25 * rand.nextInt(23);
+                hamburgerx = 50 + 25 * rand.nextInt(33);
+                hamburgery = 100 + 25 * rand.nextInt(23);
             }
 
             //判断蛇头和身体是否重叠
