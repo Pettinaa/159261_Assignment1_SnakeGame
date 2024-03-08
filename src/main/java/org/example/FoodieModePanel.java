@@ -19,7 +19,9 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
     ImageIcon down = new ImageIcon("down.png");
     ImageIcon left = new ImageIcon("left.png");
     ImageIcon right = new ImageIcon("right.png");
-    ImageIcon food1 = new ImageIcon("food3.png");
+    ImageIcon food1 = new ImageIcon("food1.png");
+    ImageIcon food2 = new ImageIcon("food2.png");
+    ImageIcon food3 = new ImageIcon("food3.png");
     ImageIcon bomb = new ImageIcon("bomb.png");
     ImageIcon fire = new ImageIcon("fire.jpg");
     ImageIcon wall = new ImageIcon("wall.png");
@@ -39,6 +41,8 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
     int food1y;
     int food2x;
     int food2y;
+    int food3x;
+    int food3y;
     int hamburgerx;
     int hamburgery;
     Random rand = new Random();
@@ -109,6 +113,8 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
 
         //随机增加食物
         food1.paintIcon(this, g, food1x, food1y);
+        food2.paintIcon(this, g, food2x, food2y);
+        food3.paintIcon(this, g, food3x, food3y);
         //随机生成大汉堡
         hamburger.paintIcon(this, g, hamburgerx,hamburgery);
 
@@ -139,6 +145,10 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
         snakey[2] = 125;
         food1x = 100 + 25 * rand.nextInt(28);
         food1y = 150 + 25 * rand.nextInt(18);
+        food2x = 100 + 25 * rand.nextInt(28);
+        food2y = 150 + 25 * rand.nextInt(18);
+        food3x = 100 + 25 * rand.nextInt(28);
+        food3y = 150 + 25 * rand.nextInt(18);
         hamburgerx = 100 + 25 * rand.nextInt(28);
         hamburgery = 150 + 25 * rand.nextInt(18);
         direction = "R";
@@ -224,6 +234,19 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
                 food1x = 50 + 25 * rand.nextInt(33);
                 food1y = 100 + 25 * rand.nextInt(23);
             }
+            if(snakex[0] == food2x && snakey[0] == food2y){
+                len+= 1;
+                score+= 1;
+                food2x = 50 + 25 * rand.nextInt(33);
+                food2y = 100 + 25 * rand.nextInt(23);
+            }
+            if(snakex[0] == food3x && snakey[0] == food3y){
+                len+= 1;
+                score+= 1;
+                food3x = 50 + 25 * rand.nextInt(33);
+                food3y = 100 + 25 * rand.nextInt(23);
+            }
+
 
             //身体+3 & 重新生成大汉堡
             if(snakex[0] == hamburgerx && snakey[0] == hamburgery){
