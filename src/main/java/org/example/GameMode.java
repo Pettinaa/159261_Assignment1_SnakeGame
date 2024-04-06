@@ -61,13 +61,13 @@ public class GameMode extends JFrame {
         this.dispose();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                GameMode gameMode = new GameMode();
-                gameMode.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                GameMode gameMode = new GameMode();
+//                gameMode.setVisible(true);
+//            }
+//        });
+//    }
 }
