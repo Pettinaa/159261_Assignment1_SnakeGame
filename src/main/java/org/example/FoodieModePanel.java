@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 
 public class FoodieModePanel extends JPanel implements KeyListener, ActionListener {
-    ImageIcon title = new ImageIcon("title.jpg");
+    ImageIcon title = new ImageIcon("title3.jpg");
 
     ImageIcon body = new ImageIcon("body.png");
     ImageIcon up = new ImageIcon("up.png");
