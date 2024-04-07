@@ -12,7 +12,7 @@ public class GameMode extends JFrame {
 
     public GameMode() {
         setTitle("Game Modes");
-        setSize(300, 200);
+        setSize(350, 270);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 

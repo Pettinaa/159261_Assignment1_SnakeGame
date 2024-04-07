@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 
-public class NormalModePanel extends JPanel implements KeyListener, ActionListener {
+public class SurvivalModePanel extends JPanel implements KeyListener, ActionListener {
     ImageIcon title = new ImageIcon("title.jpg");
 
     ImageIcon body = new ImageIcon("body.png");
@@ -21,9 +21,9 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
     ImageIcon right = new ImageIcon("right.png");
     ImageIcon food = new ImageIcon("food2.png");
     ImageIcon bomb = new ImageIcon("bomb.png");
-    ImageIcon fire = new ImageIcon("fire.jpg");
+    ImageIcon fire = new ImageIcon("fire2.png");
     ImageIcon wall = new ImageIcon("wall.png");
-    ImageIcon hamburger = new ImageIcon("hamburger.png");
+    ImageIcon medicine = new ImageIcon("medicine.png");
     int len = 3;
     int score = 0;
     int[] snakex = new int[750];
@@ -34,11 +34,18 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
     String direction = "R";//头的方向
     boolean isStarted = false;
     boolean isFailed = false;
+    boolean emergency = false;
     Timer timer = new Timer(100, this);
     int foodx;
     int foody;
+    int bombx;
+    int bomby;
+    int firex;
+    int firey;
+    int mediciney;
+    int medicinex;
     Random rand = new Random();
-    public NormalModePanel(){
+    public SurvivalModePanel(){
         //初始化蛇
         initSnake();
         this.setFocusable(true);
@@ -47,7 +54,7 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
 
     }
     // 新增带参数的构造函数
-    public NormalModePanel(String gameMode) {
+    public SurvivalModePanel(String gameMode) {
         this();  // 调用默认构造函数，复用通用的初始化逻辑
 
         // 根据游戏模式的不同，设置初始化和绘制逻辑
@@ -112,11 +119,20 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
         }
         //蛇身
         for(int i = 1; i < len; i++){
-           body.paintIcon(this, g, snakex[i], snakey[i]);
+            body.paintIcon(this, g, snakex[i], snakey[i]);
         }
 
         //随机增加食物
         food.paintIcon(this, g, foodx, foody);
+        //随机炸弹
+        bomb.paintIcon(this, g, bombx, bomby);
+        //随机火焰
+        fire.paintIcon(this, g, firex, firey);
+
+        if(emergency){
+            medicine.paintIcon(this, g, medicinex, mediciney);
+            emergency = false;
+        }
 
         if(isStarted == false){
             //游戏开始提示
@@ -145,6 +161,17 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
         snakey[2] = 125;
         foodx = 100 + 25 * rand.nextInt(28);
         foody = 150 + 25 * rand.nextInt(18);
+
+        bombx = 100 + 25 * rand.nextInt(28);
+        bomby = 150 + 25 * rand.nextInt(18);
+
+        firex = 100 + 25 * rand.nextInt(28);
+        firey = 150 + 25 * rand.nextInt(18);
+
+        medicinex = 50 + 25 * rand.nextInt(33);
+        mediciney = 100 + 25 * rand.nextInt(23);
+
+
         direction = "R";
         score = 0;
     }
@@ -197,12 +224,12 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
                 snakex[i] = snakex[i - 1];
                 snakey[i] = snakey[i - 1];
             }
-           //确定每个图片坐标和舌头方向（左上角位置
+            //确定每个图片坐标和舌头方向（左上角位置
             if(direction == "R"){
                 snakex[0] = snakex[0] + 25;
                 //让蛇撞墙死
                 if(snakex[0] == 825){
-                   isFailed = true;
+                    isFailed = true;
                 }
             }else if(direction == "L"){
                 snakex[0] = snakex[0] - 25;
@@ -221,6 +248,8 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
                     isFailed = true;
                 }
             }
+
+
             //身体+1 & 重新生成食物
             if(snakex[0] == foodx && snakey[0] == foody){
                 len++;
@@ -229,11 +258,45 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
                 foody = 100 + 25 * rand.nextInt(23);
             }
 
+            //身体-3 & 重新生成炸弹
+            if(snakex[0] == bombx && snakey[0] == bomby){
+                len-=3;
+                score-=3;
+                if(len < 0){
+                    isFailed = true;
+                }
+                bombx = 50 + 25 * rand.nextInt(33);
+                bomby = 100 + 25 * rand.nextInt(23);
+            }
+
+            //身体-1 & 重新生成火焰
+            if(snakex[0] == firex && snakey[0] == firey){
+                len-=1;
+                score-=1;
+                if(len < 0){
+                    isFailed = true;
+                }
+                firex = 50 + 25 * rand.nextInt(33);
+                firey = 100 + 25 * rand.nextInt(23);
+            }
+
+            //身体+5 &
+            if(snakex[0] == medicinex && snakey[0] == mediciney){
+                len+=5;
+                score+=5;
+                medicinex = 50 + 25 * rand.nextInt(33);
+                mediciney = 100 + 25 * rand.nextInt(23);
+            }
+
             //判断蛇头和身体是否重叠
             for(int i = 1; i < len; i++){
                 if(snakex[i] == snakex[0] && snakey[i] == snakey[0]){
                     isFailed = true;
                 }
+            }
+
+            if(len == 0){
+                emergency = true;
             }
 
             //时钟到时调用的方法,刷新屏幕

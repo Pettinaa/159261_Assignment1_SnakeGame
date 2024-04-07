@@ -63,6 +63,7 @@ public class IntroductionFrame extends JFrame {
         frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(new NormalModePanel());
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 
         } else if (mode.equals("Foodie Mode")) {
@@ -71,10 +72,20 @@ public class IntroductionFrame extends JFrame {
             frame.setResizable(false);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(new FoodieModePanel());
+            frame.setLocationRelativeTo(null);
             frame.setVisible(true);
+
         } else if (mode.equals("Survival Mode")) {
             // 创建 ExtremeModePanel，如果有的话
             // gamePanel = new ExtremeModePanel();
+            JFrame frame = new JFrame();
+            frame.setBounds(10, 10, 900, 720);
+            frame.setResizable(false);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.add(new SurvivalModePanel());
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+
         } else {
             // 处理其他模式
             return;
