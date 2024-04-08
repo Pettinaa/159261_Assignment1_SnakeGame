@@ -15,6 +15,9 @@ public class GameMode extends JFrame {
         setSize(350, 270);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
+        setIconImage(icon.getImage());
+
 
         initUI();
     }
@@ -61,13 +64,5 @@ public class GameMode extends JFrame {
         this.dispose();
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                GameMode gameMode = new GameMode();
-//                gameMode.setVisible(true);
-//            }
-//        });
-//    }
+
 }

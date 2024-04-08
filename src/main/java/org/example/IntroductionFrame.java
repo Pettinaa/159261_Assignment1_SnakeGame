@@ -15,6 +15,10 @@ public class IntroductionFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
+        ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
+        setIconImage(icon.getImage());
+
+
         initUI(mode, frame);
     }
 
@@ -103,7 +107,10 @@ public class IntroductionFrame extends JFrame {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(new NormalModePanel());
         frame.setLocationRelativeTo(null);
+        ImageIcon icon = new ImageIcon("logo3.png");
+        frame.setIconImage(icon.getImage());
         frame.setVisible(true);
+
 
         } else if (mode.equals("Foodie Mode")) {
             JFrame frame = new JFrame();
@@ -112,7 +119,10 @@ public class IntroductionFrame extends JFrame {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(new FoodieModePanel());
             frame.setLocationRelativeTo(null);
+            ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
+            frame.setIconImage(icon.getImage());
             frame.setVisible(true);
+
 
         } else if (mode.equals("Survival Mode")) {
             // 创建 ExtremeModePanel，如果有的话
@@ -123,7 +133,10 @@ public class IntroductionFrame extends JFrame {
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.add(new SurvivalModePanel());
             frame.setLocationRelativeTo(null);
+            ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
+            frame.setIconImage(icon.getImage());
             frame.setVisible(true);
+
 
         } else {
             // 处理其他模式
@@ -138,15 +151,5 @@ public class IntroductionFrame extends JFrame {
         this.dispose();  // Close the current frame (IntroductionFrame)
     }
 
-    // ... (Add methods to start different game modes if needed)
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(new Runnable() {
-//            @Override
-//            public void run() {
-//                IntroductionFrame introFrame = new IntroductionFrame("Normal Mode", new JFrame());
-//                introFrame.setVisible(true);
-//            }
-//        });
-//    }
 }

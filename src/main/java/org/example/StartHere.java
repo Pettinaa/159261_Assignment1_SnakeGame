@@ -16,6 +16,11 @@ public class StartHere extends GameEngine{
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mFrame.setLocationRelativeTo(null);
 
+        ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
+        mFrame.setIconImage(icon.getImage());
+
+
+
         setWindowSize(500, 500);
 
         snakeIcon = new ImageIcon("snake2.png");
@@ -63,7 +68,7 @@ public class StartHere extends GameEngine{
     private void initUI() {
        // mPanel.setBackground(Color.BLUE);
 //        JLabel snakeLabel = new JLabel(snakeIcon);
-//        snakeLabel.setBounds(50, -30, 200, 180); // 设置图片的位置和大小
+
 
         mPanel.setBackground(Color.GRAY);
 
