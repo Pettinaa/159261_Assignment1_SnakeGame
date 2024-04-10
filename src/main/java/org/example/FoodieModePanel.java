@@ -20,7 +20,7 @@ import org.example.GameEngine.*;
 public class FoodieModePanel extends JPanel implements KeyListener, ActionListener {
     ImageIcon title = new ImageIcon("title3.jpg");
 
-    ImageIcon body = new ImageIcon("body.png");
+    ImageIcon body = new ImageIcon("t4.png");
     ImageIcon up = new ImageIcon("up.png");
     ImageIcon down = new ImageIcon("down.png");
     ImageIcon left = new ImageIcon("left.png");
