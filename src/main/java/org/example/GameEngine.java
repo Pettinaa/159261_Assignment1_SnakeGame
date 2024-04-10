@@ -595,7 +595,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     //-------------------------------------------------------
 
     // Class used to store an audio clip
-    public class AudioClip {
+    public static class AudioClip {
         // Format
         AudioFormat mFormat;
 

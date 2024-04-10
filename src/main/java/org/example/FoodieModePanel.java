@@ -1,13 +1,19 @@
 package org.example;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Random;
 import java.util.ArrayList;
+
+import org.example.GameEngine.*;
 
 
 
@@ -26,6 +32,7 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
     ImageIcon fire = new ImageIcon("fire.jpg");
     ImageIcon wall = new ImageIcon("wall.png");
     ImageIcon hamburger = new ImageIcon("hamburger.png");
+    private GameEngine.AudioClip backgroundMusic;  // 背景音乐
     int len = 3;
     int score = 0;
     int[] snakex = new int[750];
@@ -52,7 +59,7 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
         this.setFocusable(true);
         this.addKeyListener(this);
         timer.start();
-
+        playBGM();
     }
     // 新增带参数的构造函数
     public FoodieModePanel(String gameMode) {
@@ -154,6 +161,39 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
         direction = "R";
         score = 0;
     }
+
+    public void playBGM() {
+        try {
+            // 加载音频文件
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("bgm.wav"));
+
+            // 获取音频格式
+            AudioFormat format = audioInputStream.getFormat();
+
+            // 创建数据行信息对象
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+
+            // 获取Clip对象
+            Clip clip = (Clip) AudioSystem.getLine(info);
+
+            // 打开音频流
+            clip.open(audioInputStream);
+
+            // 播放音频
+            clip.start();
+
+            // 如果你想让音频循环播放，可以加入以下代码
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+        } catch (UnsupportedAudioFileException e) {
+            System.out.println("Unsupported audio format: " + e.getMessage());
+        } catch (LineUnavailableException e) {
+            System.out.println("Line unavailable: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("IO exception: " + e.getMessage());
+        }
+    }
+
 
 
 

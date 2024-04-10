@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 
 public class NormalModePanel extends JPanel implements KeyListener, ActionListener {
+    private GameAudioEngine gameAudioEngine;
     ImageIcon title = new ImageIcon("title3.jpg");
 
     ImageIcon body = new ImageIcon("body.png");
@@ -44,6 +45,10 @@ public class NormalModePanel extends JPanel implements KeyListener, ActionListen
         this.setFocusable(true);
         this.addKeyListener(this);
         timer.start();
+
+        // 播放音乐，音量设置为50%
+//        gameAudioEngine = new GameAudioEngine();  // 初始化GameAudioEngine对象
+//        gameAudioEngine.playMusic("bgm.wav", 0.5f);  // 播放音乐，音量设置为50%
 
     }
     // 新增带参数的构造函数

@@ -10,12 +10,15 @@ public class StartHere extends GameEngine{
     private ImageIcon snakeIcon;
     private JLabel snakeLabel;
 
+
+
     public StartHere(){
         mFrame.setTitle("Snake Game");
         mFrame.setSize(310, 270);
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mFrame.setLocationRelativeTo(null);
 
+        //窗口logo
         ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
         mFrame.setIconImage(icon.getImage());
 
@@ -31,6 +34,7 @@ public class StartHere extends GameEngine{
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
