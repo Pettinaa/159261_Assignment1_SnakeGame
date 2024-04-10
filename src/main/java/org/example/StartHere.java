@@ -19,22 +19,11 @@ public class StartHere extends GameEngine{
 
 
     public StartHere(){
-        init();
         setupWindow();
     }
 
     @Override
     public void setupWindow(){
-        mFrame.setTitle("Snake Game");
-        mFrame.setSize(310, 270);
-        mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mFrame.setLocationRelativeTo(null);
-        mFrame.setVisible(true);
-
-        //设置logo
-        ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
-        mFrame.setIconImage(icon.getImage());
-
         //设置欢迎图片
         try {
             File file = new File("snake2.png");
@@ -43,43 +32,7 @@ public class StartHere extends GameEngine{
             e.printStackTrace();
         }
 
-        //开始按钮
-        startButton = new JButton("start");
-        startButton.setBounds(100, 190, 90, 30); // 设置按钮的位置和大小
-
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        GameMode gameMode = new GameMode();
-                        gameMode.setVisible(true);
-                    }
-                });
-            }
-        });
-        mPanel.add(startButton); // 将按钮添加到面板中
-
-
     }
-
-    @Override
-    public void init() {
-
-        // 设置布局管理器为 null
-        mPanel.setLayout(null);
-        // 将图片添加到面板中
-        // mPanel.add(snakeLabel);
-        // 刷新 UI
-        mPanel.revalidate();
-        mPanel.repaint();
-
-
-    }
-
-
 
 
     @Override
@@ -92,7 +45,6 @@ public class StartHere extends GameEngine{
         changeBackgroundColor(255,255,204);
         clearBackground(500,500);
         drawImage(image, 50,10,200,180);
-       // drawCircle(50,50,10);
 
     }
 
@@ -100,9 +52,7 @@ public class StartHere extends GameEngine{
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                //StartHere startHere = new StartHere();
                 createGame(new StartHere());
-                //startHere.mFrame.setVisible(true);
             }
         });
     }

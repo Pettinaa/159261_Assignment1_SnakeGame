@@ -12,7 +12,7 @@ public class GameMode extends JFrame {
 
     public GameMode() {
         setTitle("Game Modes");
-        setSize(350, 270);
+        setSize(350, 310);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
