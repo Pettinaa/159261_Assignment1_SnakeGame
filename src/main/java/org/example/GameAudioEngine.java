@@ -2,6 +2,11 @@ package org.example;
 
 public class GameAudioEngine extends GameEngine{
     @Override
+    public void setupWindow() {
+
+    }
+
+    @Override
     public void update(double dt) {
 
     }

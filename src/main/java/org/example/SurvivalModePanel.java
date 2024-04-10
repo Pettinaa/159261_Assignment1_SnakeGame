@@ -1,11 +1,14 @@
 package org.example;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -14,7 +17,7 @@ import java.util.ArrayList;
 public class SurvivalModePanel extends JPanel implements KeyListener, ActionListener {
     ImageIcon title = new ImageIcon("title3.jpg");
 
-    ImageIcon body = new ImageIcon("body.png");
+    ImageIcon body = new ImageIcon("t4.png");
     ImageIcon up = new ImageIcon("up.png");
     ImageIcon down = new ImageIcon("down.png");
     ImageIcon left = new ImageIcon("left.png");
@@ -51,6 +54,7 @@ public class SurvivalModePanel extends JPanel implements KeyListener, ActionList
         this.setFocusable(true);
         this.addKeyListener(this);
         timer.start();
+        playBGM();
 
     }
     // 新增带参数的构造函数
@@ -64,6 +68,38 @@ public class SurvivalModePanel extends JPanel implements KeyListener, ActionList
             // 设置食物大爆炸模式的初始化逻辑（如果有的话）
         } else if (gameMode.equals("Survival Mode")) {
             // 设置极限模式的初始化逻辑（如果有的话）
+        }
+    }
+
+    public void playBGM() {
+        try {
+            // 加载音频文件
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("bgm.wav"));
+
+            // 获取音频格式
+            AudioFormat format = audioInputStream.getFormat();
+
+            // 创建数据行信息对象
+            DataLine.Info info = new DataLine.Info(Clip.class, format);
+
+            // 获取Clip对象
+            Clip clip = (Clip) AudioSystem.getLine(info);
+
+            // 打开音频流
+            clip.open(audioInputStream);
+
+            // 播放音频
+            clip.start();
+
+            // 如果你想让音频循环播放，可以加入以下代码
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+
+        } catch (UnsupportedAudioFileException e) {
+            System.out.println("Unsupported audio format: " + e.getMessage());
+        } catch (LineUnavailableException e) {
+            System.out.println("Line unavailable: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("IO exception: " + e.getMessage());
         }
     }
 
@@ -143,11 +179,24 @@ public class SurvivalModePanel extends JPanel implements KeyListener, ActionList
 
         if(isFailed == true){
             //游戏结束提示
-            g.setColor(Color.RED);
-            g.setFont(new Font("arial",  Font.BOLD, 40));
-            g.drawString("Failed: Press Space to Restart", 150, 300);
+            drawStyledMessage(g, "Failed: Press Space to Restart", 150, 300);
         }
 
+
+    }
+
+    // 辅助方法，用于绘制带有样式的消息
+    private void drawStyledMessage(Graphics g, String message, int x, int y) {
+        // 设置背景板
+        g.setColor(new Color(255, 0, 0, 50)); // 半透明红色背景
+        g.fillRect(x - 20, y - 40, 630, 60);  // 背景板大小和位置
+
+        // 设置文本样式
+        g.setColor(Color.WHITE); // 白色文本
+        g.setFont(new Font("Arial", Font.BOLD, 40)); // 加粗的Arial字体
+
+        // 绘制文本
+        g.drawString(message, x, y);
 
     }
 

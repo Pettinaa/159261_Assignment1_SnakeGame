@@ -134,9 +134,7 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
 
         if(isFailed == true){
             //游戏结束提示
-            g.setColor(Color.RED);
-            g.setFont(new Font("arial",  Font.BOLD, 40));
-            g.drawString("Failed: Press Space to Restart", 150, 300);
+            drawStyledMessage(g, "Failed: Press Space to Restart", 150, 300);
         }
 
 
@@ -194,9 +192,19 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
         }
     }
 
+    private void drawStyledMessage(Graphics g, String message, int x, int y) {
+        // 设置背景板
+        g.setColor(new Color(255, 0, 0, 50)); // 半透明红色背景
+        g.fillRect(x - 20, y - 40, 630, 60);  // 背景板大小和位置
 
+        // 设置文本样式
+        g.setColor(Color.WHITE); // 白色文本
+        g.setFont(new Font("Arial", Font.BOLD, 40)); // 加粗的Arial字体
 
+        // 绘制文本
+        g.drawString(message, x, y);
 
+    }
 
 
     @Override

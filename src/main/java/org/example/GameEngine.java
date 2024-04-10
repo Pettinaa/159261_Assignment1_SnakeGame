@@ -76,12 +76,13 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         mWidth = width;
         mHeight = height;
 
-//        mFrame.setSize(width, height);
-//        mFrame.setLocation(200,200);
-//        mFrame.setTitle("Window");
-//        mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        mFrame.add(mPanel);
-//        mFrame.setVisible(true);
+        mFrame.setSize(width, height);
+        mFrame.setLocation(200,200);
+        mFrame.setTitle("Window");
+        mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mFrame.add(mPanel);
+       // mFrame.setVisible(true);
+        mFrame.setLocationRelativeTo(null);
 
         mPanel.setDoubleBuffered(true);
         mPanel.addMouseListener(this);
@@ -255,6 +256,8 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
         // Main loop runs until program is closed
         timer.start();
     }
+
+    public abstract void setupWindow();
 
     //-------------------------------------------------------
     // Initialise function

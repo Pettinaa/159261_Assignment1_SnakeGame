@@ -64,5 +64,4 @@ public class GameMode extends JFrame {
         this.dispose();
     }
 
-
 }
