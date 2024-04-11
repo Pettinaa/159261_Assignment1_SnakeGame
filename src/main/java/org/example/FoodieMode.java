@@ -1,38 +1,25 @@
 package org.example;
 
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
 import java.util.ArrayList;
+import java.util.Random;
 
-import org.example.GameEngine.*;
-
-
-
-public class FoodieModePanel extends JPanel implements KeyListener, ActionListener {
-    ImageIcon title = new ImageIcon("title3.jpg");
-
-    ImageIcon body = new ImageIcon("t4.png");
-    ImageIcon up = new ImageIcon("up.png");
-    ImageIcon down = new ImageIcon("down.png");
-    ImageIcon left = new ImageIcon("left.png");
-    ImageIcon right = new ImageIcon("right.png");
-    ImageIcon food1 = new ImageIcon("food1.png");
-    ImageIcon food2 = new ImageIcon("food2.png");
-    ImageIcon food3 = new ImageIcon("food3.png");
-    ImageIcon bomb = new ImageIcon("bomb.png");
-    ImageIcon fire = new ImageIcon("fire.jpg");
-    ImageIcon wall = new ImageIcon("wall.png");
-    ImageIcon hamburger = new ImageIcon("hamburger.png");
-    private GameEngine.AudioClip backgroundMusic;  // 背景音乐
+public class FoodieMode extends GameEngine{
+    Image title;
+    Image body;
+    Image up;
+    Image down;
+    Image left;
+    Image right;
+    Image food1;
+    Image food2;
+    Image food3;
+    Image hamburger;
     int len = 3;
     int score = 0;
     int[] snakex = new int[750];
@@ -43,7 +30,6 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
     String direction = "R";//头的方向
     boolean isStarted = false;
     boolean isFailed = false;
-    Timer timer = new Timer(100, this);
     int food1x;
     int food1y;
     int food2x;
@@ -53,93 +39,11 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
     int hamburgerx;
     int hamburgery;
     Random rand = new Random();
-    public FoodieModePanel(){
+    public FoodieMode(){
         //初始化蛇
         initSnake();
-        this.setFocusable(true);
-        this.addKeyListener(this);
-        timer.start();
         playBGM();
     }
-    // 新增带参数的构造函数
-    public FoodieModePanel(String gameMode) {
-        this();  // 调用默认构造函数，复用通用的初始化逻辑
-
-        // 根据游戏模式的不同，设置初始化和绘制逻辑
-        if (gameMode.equals("Normal Mode")) {
-            // 设置常规模式的初始化逻辑（如果有的话）
-        } else if (gameMode.equals("Foodie Mode")) {
-            // 设置食物大爆炸模式的初始化逻辑（如果有的话）
-        } else if (gameMode.equals("Survival Mode")) {
-            // 设置极限模式的初始化逻辑（如果有的话）
-        }
-    }
-
-    public void paintComponent(Graphics g){
-        super.paintComponent(g);
-        this.setBackground(Color.WHITE);
-        title.paintIcon(this, g, 21, 11);
-        //画黑色
-        g.fillRect(21, 75, 850, 600);
-        //画分数和长度
-        g.setColor(Color.white);
-        g.drawString("Length:" + len, 750, 35);
-        g.drawString("Score:" + score, 750, 50);
-
-
-
-        // 设置线段颜色为深灰色
-        g.setColor(Color.DARK_GRAY);
-        //画网格
-        for (int i = 0; i < 24; i++) {
-            //23条横线      起点坐标                   终点坐标
-            g.drawLine(21, 75 + i * 25, 871, 75 + i * 25 );
-        }
-        for (int i = 0; i < 33; i++) {
-            //32条竖线      起点坐标                   终点坐标
-            g.drawLine(50 + i * 25, 75, 50 + i * 25, 675 );
-
-        }
-
-
-        //打印蛇
-        //蛇头
-        if(direction == "R"){
-            right.paintIcon(this, g, snakex[0], snakey[0]);
-        }else if(direction == "L"){
-            left.paintIcon(this, g, snakex[0], snakey[0]);
-        } else if (direction == "U") {
-            up.paintIcon(this, g, snakex[0], snakey[0]);
-        }else{
-            down.paintIcon(this, g, snakex[0], snakey[0]);
-        }
-        //蛇身
-        for(int i = 1; i < len; i++){
-            body.paintIcon(this, g, snakex[i], snakey[i]);
-        }
-
-        //随机增加食物
-        food1.paintIcon(this, g, food1x, food1y);
-        food2.paintIcon(this, g, food2x, food2y);
-        food3.paintIcon(this, g, food3x, food3y);
-        //随机生成大汉堡
-        hamburger.paintIcon(this, g, hamburgerx,hamburgery);
-
-        if(isStarted == false){
-            //游戏开始提示
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("arial",  Font.BOLD, 40));
-            g.drawString("Press Space to Start", 250, 300);
-        }
-
-        if(isFailed == true){
-            //游戏结束提示
-            drawStyledMessage(g, "Failed: Press Space to Restart", 150, 300);
-        }
-
-
-    }
-
     public void initSnake(){
         len = 3;
         snakex[0] = 100;
@@ -159,7 +63,6 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
         direction = "R";
         score = 0;
     }
-
     public void playBGM() {
         try {
             // 加载音频文件
@@ -191,7 +94,6 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
             System.out.println("IO exception: " + e.getMessage());
         }
     }
-
     private void drawStyledMessage(Graphics g, String message, int x, int y) {
         // 设置背景板
         g.setColor(new Color(255, 0, 0, 50)); // 半透明红色背景
@@ -205,46 +107,13 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
         g.drawString(message, x, y);
 
     }
-
-
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void setupWindow() {
 
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-        if(keyCode == KeyEvent.VK_SPACE){
-            //如果输了，重新开始
-            if(isFailed){
-                isFailed = false;
-                initSnake();
-            }else{
-                //没输继续
-                isStarted = !isStarted;
-                //将开始设置为true
-            }
-            //从新打印画布，让字消失
-            repaint();
-        }else if(keyCode == KeyEvent.VK_LEFT){
-            direction = "L";
-        }else if(keyCode == KeyEvent.VK_RIGHT){
-            direction = "R";
-        }else if(keyCode == KeyEvent.VK_UP){
-            direction = "U";
-        }else if(keyCode == KeyEvent.VK_DOWN){
-            direction = "D";
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void update(double dt) {
         if(isStarted && !isFailed){
             //让蛇移动
             for(int i = len - 1; i > 0; i-- ){
@@ -312,9 +181,123 @@ public class FoodieModePanel extends JPanel implements KeyListener, ActionListen
             }
 
             //时钟到时调用的方法,刷新屏幕
-            repaint();
+            mFrame.repaint();
 
         }
-        timer.start();
+    }
+
+    @Override
+    public void paintComponent() {
+        try {
+            File file1 = new File("title3.jpg");
+            title = ImageIO.read(file1);
+            File file2 = new File("t4.png");
+            body = ImageIO.read(file2);
+            File file3 = new File("up.png");
+            up = ImageIO.read(file3);
+            File file4 = new File("down.png");
+            down = ImageIO.read(file4);
+            File file5 = new File("left.png");
+            left = ImageIO.read(file5);
+            File file6 = new File("right.png");
+            right = ImageIO.read(file6);
+            File file7 = new File("food1.png");
+            food1 = ImageIO.read(file7);
+            File file8 = new File("food2.png");
+            food2 = ImageIO.read(file8);
+            File file9 = new File("food3.png");
+            food3 = ImageIO.read(file9);
+            File file10 = new File("hamburger.png");
+            hamburger = ImageIO.read(file10);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //画标题
+        drawImage(title, 21, 11);
+        //画黑色
+        drawSolidRectangle(21, 75, 850, 600);
+        //画分数和长度
+        changeColor(Color.white);
+        drawText(750, 35, "Length:" + len);
+        drawText(750, 50, "Score:" + score);
+
+        // 设置线段颜色为深灰色
+        changeColor(Color.DARK_GRAY);
+        //画网格
+        for (int i = 0; i < 24; i++) {
+            //23条横线      起点坐标                   终点坐标
+            drawLine(21, 75 + i * 25, 871, 75 + i * 25 );
+        }
+        for (int i = 0; i < 33; i++) {
+            //23条竖线      起点坐标                   终点坐标
+            drawLine(50 + i * 25, 75, 50 + i * 25, 675 );
+
+        }
+
+        //打印蛇
+        //蛇头
+        if(direction == "R"){
+            drawImage(right, snakex[0], snakey[0]);
+        }else if(direction == "L"){
+            drawImage(left, snakex[0], snakey[0]);
+        } else if (direction == "U") {
+            drawImage(up, snakex[0], snakey[0]);
+        }else{
+            drawImage(down, snakex[0], snakey[0]);
+        }
+        //蛇身
+        for(int i = 1; i < len; i++){
+            drawImage(body, snakex[i], snakey[i]);
+        }
+
+        //随机增加食物
+        drawImage(food1, food1x, food1y);
+        drawImage(food2, food2x, food2y);
+        drawImage(food3, food3x, food3y);
+        //随机生成大汉堡
+        drawImage(hamburger, hamburgerx, hamburgery);
+
+        if(isStarted == false){
+            //游戏开始提示
+            changeColor(Color.WHITE);
+            //setFont(new Font("arial",  Font.BOLD, 40));
+            drawBoldText( 250, 300,"Press Space to Start");
+        }
+
+        if(isFailed == true){
+            //游戏结束提示
+            //drawStyledMessage("Failed: Press Space to Restart", 150, 300);
+            changeColor(Color.WHITE);
+            drawBoldText( 200, 300,"Failed: Press Space to Restart");
+
+
+        }
+
+    }
+    @Override
+    public void keyPressed(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        if(keyCode == KeyEvent.VK_SPACE){
+            //如果输了，重新开始
+            if(isFailed){
+                isFailed = false;
+                initSnake();
+            }else{
+                //没输继续
+                isStarted = !isStarted;
+                //将开始设置为true
+            }
+            //从新打印画布，让字消失
+            mFrame.repaint();
+        }else if(keyCode == KeyEvent.VK_LEFT){
+            direction = "L";
+        }else if(keyCode == KeyEvent.VK_RIGHT){
+            direction = "R";
+        }else if(keyCode == KeyEvent.VK_UP){
+            direction = "U";
+        }else if(keyCode == KeyEvent.VK_DOWN){
+            direction = "D";
+        }
     }
 }

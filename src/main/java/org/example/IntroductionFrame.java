@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static org.example.GameEngine.createGame;
+
 public class IntroductionFrame extends JFrame {
     private JButton startButton;
     private JButton backButton;
@@ -101,43 +103,28 @@ public class IntroductionFrame extends JFrame {
 
         //判断用户选择的是哪种游戏模式
         if (mode.equals("Normal Mode")) {
-        JFrame frame = new JFrame();
-        frame.setBounds(10, 10, 900, 720);
-        frame.setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new NormalModePanel());
-        frame.setLocationRelativeTo(null);
-        ImageIcon icon = new ImageIcon("logo3.png");
-        frame.setIconImage(icon.getImage());
-        frame.setVisible(true);
-
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    createGame(new NormalMode());
+                }
+            });
 
         } else if (mode.equals("Foodie Mode")) {
-            JFrame frame = new JFrame();
-            frame.setBounds(10, 10, 900, 720);
-            frame.setResizable(false);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.add(new FoodieModePanel());
-            frame.setLocationRelativeTo(null);
-            ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
-            frame.setIconImage(icon.getImage());
-            frame.setVisible(true);
-
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    createGame(new FoodieMode());
+                }
+            });
 
         } else if (mode.equals("Survival Mode")) {
-            // 创建 ExtremeModePanel，如果有的话
-            // gamePanel = new ExtremeModePanel();
-            JFrame frame = new JFrame();
-            frame.setBounds(10, 10, 900, 720);
-            frame.setResizable(false);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.add(new SurvivalModePanel());
-            frame.setLocationRelativeTo(null);
-            ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
-            frame.setIconImage(icon.getImage());
-            frame.setVisible(true);
-
-
+            SwingUtilities.invokeLater(new Runnable() {
+                @Override
+                public void run() {
+                    createGame(new SurvivalMode());
+                }
+            });
         } else {
             // 处理其他模式
             return;

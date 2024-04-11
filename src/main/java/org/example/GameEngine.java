@@ -1,18 +1,19 @@
 package org.example;
-import java.awt.*;
-import java.awt.geom.*;
 
-import javax.swing.*;
-
-import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
-
-import java.util.Stack;
-import java.util.Random;
-
-import javax.imageio.*;
+import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
+import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
+import java.util.Stack;
 
 public abstract class GameEngine implements KeyListener, MouseListener, MouseMotionListener {
     //-------------------------------------------------------
@@ -23,7 +24,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     int mWidth, mHeight;
     Graphics2D mGraphics;
     boolean initialised = false;
-    private JButton startButton;
+    //private JButton startButton;
     private ImageIcon snakeIcon;
     private Image image;
     private JLabel snakeLabel;
@@ -82,41 +83,26 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
         mFrame.setSize(width, height);
         mFrame.setLocation(310,190);
+        mFrame.setBounds(10, 10, 900, 700);
+        mFrame.setResizable(false);
         mFrame.setTitle("Snake Game");
         mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mFrame.add(mPanel);
         mFrame.setVisible(true);
         mFrame.setLocationRelativeTo(null);
 
-        mPanel.setDoubleBuffered(true);
-        mPanel.addMouseListener(this);
-        mPanel.addMouseMotionListener(this);
-
         //设置logo
         ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
         mFrame.setIconImage(icon.getImage());
 
-        //开始按钮
-        startButton = new JButton("start");
-        mPanel.setLayout(null);  // 设置布局管理器为 null
-        startButton.setBounds(100, 190, 90, 30); // 设置按钮的位置和大小
 
-        startButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        GameMode gameMode = new GameMode();
-                        gameMode.setVisible(true);
-                    }
-                });
-            }
-        });
+        mPanel.setDoubleBuffered(true);
+        mPanel.addMouseListener(this);
+        mPanel.addMouseMotionListener(this);
 
 
-        mPanel.add(startButton); // 将按钮添加到面板中
+
+
 
         // Register a key event dispatcher to get a turn in handling all
         // key events, independent of which component currently has the focus
@@ -191,7 +177,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
             @Override
             public void run() {
                 // Create the window
-                setupWindow(310,230);
+                setupWindow(900,700);
             }
         });
     }
@@ -207,7 +193,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     public static void createGame(GameEngine game) {
         // Call CreateGame
-        createGame(game, 30);
+        createGame(game, 10);
     }
 
     // Game Timer
@@ -237,7 +223,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     // Main Loop of the game. Runs continuously
     // and calls all the updates of the game and
     // tells the game to display a new frame.
-    GameTimer timer = new GameTimer(30, new ActionListener() {
+    GameTimer timer = new GameTimer(15, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             // Determine the time step
@@ -479,7 +465,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     // This function draws text on the screen at (x,y)
     public void drawText(double x, double y, String s) {
         // Draw text on the screen
-        mGraphics.setFont(new Font("Arial", Font.PLAIN, 40));
+        mGraphics.setFont(new Font("Arial", Font.PLAIN, 15));
         mGraphics.drawString(s, (int)x, (int)y);
     }
 

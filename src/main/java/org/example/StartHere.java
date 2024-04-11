@@ -1,60 +1,63 @@
 package org.example;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
 
-import static java.awt.Color.gray;
-
-public class StartHere extends GameEngine{
+public class StartHere extends JFrame {
     private JButton startButton;
     private ImageIcon snakeIcon;
-    private Image image;
-    private JLabel snakeLabel;
+    JPanel mPanel = new JPanel();
 
+    public StartHere() {
+        this.setTitle("Snake Game");
+        this.setSize(310, 255);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
 
+        snakeIcon = new ImageIcon("snake2.png");
 
-    public StartHere(){
-        setupWindow();
-    }
+        ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
+        this.setIconImage(icon.getImage());
 
-    @Override
-    public void setupWindow(){
-        //设置欢迎图片
-        try {
-            File file = new File("snake2.png");
-            image = ImageIO.read(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        startButton = new JButton("start");
 
-    }
-
-
-    @Override
-    public void update(double dt) {
-
-    }
-
-    @Override
-    public void paintComponent() {
-        changeBackgroundColor(255,255,204);
-        clearBackground(500,500);
-        drawImage(image, 50,10,200,180);
-
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+        startButton.addActionListener(new ActionListener() {
             @Override
-            public void run() {
-                createGame(new StartHere());
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        GameMode gameMode = new GameMode();
+                        gameMode.setVisible(true);
+                    }
+                });
             }
         });
+
+        initUI();
     }
 
+    private void initUI() {
+        mPanel.setBackground(Color.GRAY);
+        mPanel.setLayout(null);
+
+        JLabel snakeLabel = new JLabel(snakeIcon);
+        snakeLabel.setBounds(50, 0, 200, 180);
+
+        startButton.setBounds(100, 180, 100, 40);
+
+        mPanel.add(snakeLabel);
+        mPanel.add(startButton);
+
+        this.add(mPanel);
+    }
+
+
+
+    public static void main(String[] args) {
+        StartHere startHere = new StartHere();
+        startHere.setVisible(true);
+    }
 }
