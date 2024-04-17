@@ -40,7 +40,7 @@ public class StartHere extends JFrame {
     }
 
     private void initUI() {
-        mPanel.setBackground(Color.GRAY);
+        mPanel.setBackground(new Color(255, 255, 153));  // 浅浅的黄色
         mPanel.setLayout(null);
 
         JLabel snakeLabel = new JLabel(snakeIcon);
