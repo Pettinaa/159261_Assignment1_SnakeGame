@@ -230,7 +230,7 @@ public class SurvivalMode extends GameEngine {
             drawLine(50, 100 + i * 25, 850, 100 + i * 25);
         }
         for (int i = 0; i < 33; i++) {
-            drawLine(75 + i * 25, 100, 75 + i * 25, 625);
+            drawLine(75 + i * 25, 100, 75 + i * 25, 650);
         }
 
         // Snake

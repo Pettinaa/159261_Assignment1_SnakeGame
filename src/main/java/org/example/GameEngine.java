@@ -24,10 +24,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
     int mWidth, mHeight;
     Graphics2D mGraphics;
     boolean initialised = false;
-    //private JButton startButton;
-    private ImageIcon snakeIcon;
-    private Image image;
-    private JLabel snakeLabel;
+
 
 
 
@@ -161,13 +158,7 @@ public abstract class GameEngine implements KeyListener, MouseListener, MouseMot
 
     // GameEngine Constructor
     public GameEngine() {
-        //初始化 mFrame 和 mPanel 变量,防止nullPointerException
-//        mFrame = new JFrame();
-//        mPanel = new GamePanel();  // 创建GamePanel的实例
-//        mFrame.add(mPanel);
-//        mFrame.setSize(300, 200);
-//        mFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        mFrame.setLocationRelativeTo(null);
+
 
         // Create graphics transform stack
         mTransforms = new Stack<AffineTransform>();

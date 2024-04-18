@@ -18,7 +18,7 @@ public class StartHere extends JFrame {
 
         snakeIcon = new ImageIcon("snake2.png");
 
-        ImageIcon icon = new ImageIcon("logo3.png"); // 指定图标文件的路径
+        ImageIcon icon = new ImageIcon("logo3.png");
         this.setIconImage(icon.getImage());
 
         startButton = new JButton("start");
