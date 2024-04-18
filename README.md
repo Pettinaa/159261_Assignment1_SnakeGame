@@ -12,7 +12,7 @@ To run the program, start from the entry point "StartHere". This will launch the
 - Updated the game's IconImage to highlight its unique style.
 
 ## Game Modes
-
+ 
 ### Normal Mode
 In Normal Mode, you can enjoy casual gameplay and progress through levels.
 

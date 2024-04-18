@@ -195,7 +195,7 @@ public class NormalMode extends GameEngine {
 
     public void playBGM() {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("bgm.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("Hustle_and_Bustle_of_Ormos.wav"));
             AudioFormat format = audioInputStream.getFormat();
             DataLine.Info info = new DataLine.Info(Clip.class, format);
             Clip clip = (Clip) AudioSystem.getLine(info);
